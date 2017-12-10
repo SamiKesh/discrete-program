@@ -1,0 +1,149 @@
+
+Algorithm:
+Steps:
+1. Enter the no of city(vertices);(let n)
+2. Enter the adjacency matrix with the respected weights;
+Take a visited array and initialise it with zero from one to n.
+3. Now start with the starting city(source vertex) and mark it visited by
+visited[i]=1;
+4. Calculate the minimum distance of that city with the every other vertex.
+5. Check the minimum distance city form the source vertex and add its distance (weight) in the cost.
+6. Now take that city as a source vertex and call dijikstra to calculate the minimum distance from every other vertex.
+7. Continue step 5 and 6 untill every city(vertex) is traversed.
+8. Print the cost 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Travelling Salesman Problem (TSP): Given a set of cities and distance between every pair of cities, the problem is to find the shortest possible route that visits every city exactly once and returns to the starting point.
+Hamiltoninan cycle problem is to find if there exist a tour that visits every city exactly once. Here we know that Hamiltonian Tour exists (because the graph is complete) and in fact many such tours exist, the problem is to find a minimum weight Hamiltonian Cycle.
+
+
+For example, consider the graph shown in figure on right side. A TSP tour in the graph is 1-2-4-3-1. The cost of the tour is 10+25+30+15 which is 80.
+The problem is a famous NP hard problem. There is no polynomial time know solution for this problem.
+Following are different solutions for the traveling salesman problem.
+
+LOGIC:
+ 1) Consider city 1 as the starting and ending point.
+2) Generate all (n-1)! Permutations of cities.
+3) Calculate cost of every permutation and keep track of minimum cost permutation.
+4) Return the permutation with minimum cost.
+
+ALGORITHM
+1.	Enter the no. of vertex and the no. of edges.
+2.	Then enter the egdes.
+3.	Make an adjacency matrix.
+4.	Create an visited array and initialize for all i 1 to n eqaual to zero.
+5.	Initialise the visited array with zero.
+6.	Start from ay vertex u.
+7.	Call TSP_min.cost(u)
+Visit[u]=1;
+Print(u)
+8.Find nearest vertex from u and add cost to min cost and now recursively call the TSP_min.cost.
+9.End.
+class graph:
+
+def __init__(self):
+self.matrix=[]
+self.cost=0
+
+def enter_graph(self):
+print("**Enter the vertices and edges**")
+
+n, m = input().strip().split(' ')
+n, m = [int(n), int(m)]
+
+for i in range(0,n):
+self.matrix.append([])
+for j in range(0,n):
+self.matrix[i].append(0)
+
+#print(self.matrix)
+print("Enter the edges with respective weights")
+for a1 in range(m):
+u, v, w= input().strip().split(' ')
+u, v, w = [int(u), int(v) ,int(w)]
+
+self.matrix[u][v] = w
+self.matrix[v][u] = w
+
+print(self.matrix)
+
+def tsp(self,c,visit):
+minm=999
+nearest_city=999
+for i in range(0,len(self.matrix)):
+if(self.matrix[c][i]!=0 and visit[i]==0):
+if(self.matrix[c][i] <minm):
+minm= self.matrix[c][i]
+temp = self.matrix[c][i];
+nearest_city = i
+
+if(minm != 999):
+self.cost = self.cost + temp
+return  nearest_city
+
+
+def min_cost(self,city,visit):
+visit[city] = 1;
+print(city,end=" ")
+nearest_city = self.tsp(city,visit)
+if(nearest_city==999):
+nearest_city=0
+print(nearest_city)
+self.cost = self.cost + self.matrix[city][nearest_city]
+return
+
+self.min_cost(nearest_city,visit);
+
+def visit(self):
+visit=[]
+for i in range(0,len(self.matrix)):
+visit.append(0)
+
+self.min_cost(0,visit)
+print(self.cost)
+
+#main()
+
+g=graph()
+g.enter_graph()
+visited=[]
+g.visit()
